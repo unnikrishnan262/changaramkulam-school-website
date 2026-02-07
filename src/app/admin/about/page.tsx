@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { AboutContent } from '@/types/content.types'
 import RichTextEditor from '@/components/admin/RichTextEditor'
@@ -25,11 +25,7 @@ export default function AboutPageAdmin() {
   const [message, setMessage] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchContent()
-  }, [])
-
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('page_content')
@@ -48,7 +44,11 @@ export default function AboutPageAdmin() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchContent()
+  }, [fetchContent])
 
   const handleSave = async () => {
     setSaving(true)
@@ -166,9 +166,9 @@ export default function AboutPageAdmin() {
           />
         </div>
 
-        {/* Principal's Message */}
+        {/* Principals Message */}
         <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Principal's Message</h2>
+          <h2 className="text-xl font-semibold mb-4">Principal&apos;s Message</h2>
 
           <div className="space-y-4">
             <Input
@@ -269,7 +269,7 @@ export default function AboutPageAdmin() {
 
             {content.faculty.length === 0 && (
               <p className="text-gray-500 text-center py-8">
-                No faculty members added yet. Click "Add Faculty" to create one.
+                No faculty members added yet. Click &quot;Add Faculty&quot; to create one.
               </p>
             )}
           </div>

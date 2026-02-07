@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Event } from '@/types/content.types'
@@ -14,11 +14,7 @@ export default function EditEventPage() {
   const [error, setError] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchEvent()
-  }, [params.id])
-
-  const fetchEvent = async () => {
+  const fetchEvent = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('events')
@@ -35,7 +31,11 @@ export default function EditEventPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase, params.id])
+
+  useEffect(() => {
+    fetchEvent()
+  }, [fetchEvent])
 
   if (loading) {
     return (

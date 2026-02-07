@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { ContactContent } from '@/types/content.types'
 import Button from '@/components/ui/Button'
@@ -20,11 +20,7 @@ export default function ContactPageAdmin() {
   const [message, setMessage] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchContent()
-  }, [])
-
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('page_content')
@@ -43,7 +39,11 @@ export default function ContactPageAdmin() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchContent()
+  }, [fetchContent])
 
   const handleSave = async () => {
     setSaving(true)
