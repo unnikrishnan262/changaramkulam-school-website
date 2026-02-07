@@ -24,8 +24,8 @@ export async function POST(request: NextRequest) {
 
     // Save to database
     const supabase = await createClient()
-    const { error: dbError } = await supabase
-      .from('contact_submissions')
+    const { error: dbError } = await (supabase
+      .from('contact_submissions') as any)
       .insert({
         name,
         email,

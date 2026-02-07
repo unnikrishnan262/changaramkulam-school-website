@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     if (knowledge && knowledge.length > 0) {
       const groupedByCategory: Record<string, typeof knowledge> = {}
 
-      knowledge.forEach((item) => {
+      knowledge.forEach((item: any) => {
         const category = item.category || 'General'
         if (!groupedByCategory[category]) {
           groupedByCategory[category] = []
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
       Object.entries(groupedByCategory).forEach(([category, items]) => {
         context += `\n${category.toUpperCase()}:\n`
-        items.forEach((item) => {
+        items.forEach((item: any) => {
           context += `Q: ${item.question}\nA: ${item.answer}\n\n`
         })
       })
