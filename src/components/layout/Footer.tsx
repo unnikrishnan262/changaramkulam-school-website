@@ -13,7 +13,7 @@ export default function Footer() {
               Changaramkulam U P School
             </h3>
             <p className="text-gray-400 text-sm">
-              Building Tomorrow's Leaders Today
+              Building Tomorrow&apos;s Leaders Today
             </p>
           </div>
 
