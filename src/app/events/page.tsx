@@ -14,6 +14,8 @@ export default async function EventsPage() {
     .eq('status', 'published')
     .order('event_date', { ascending: false })
 
+  const eventsData = events as any[] | null
+
   return (
     <>
       <Header />
@@ -30,7 +32,7 @@ export default async function EventsPage() {
 
         {/* Events Grid */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          {!events || events.length === 0 ? (
+          {!eventsData || eventsData.length === 0 ? (
             <div className="text-center py-16">
               <svg
                 className="w-16 h-16 mx-auto text-gray-400 mb-4"
@@ -54,7 +56,7 @@ export default async function EventsPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {events.map((event) => (
+              {eventsData.map((event: any) => (
                 <EventCard key={event.id} event={event} />
               ))}
             </div>
