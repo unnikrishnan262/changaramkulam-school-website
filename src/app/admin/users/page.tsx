@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { UserProfile } from '@/types/user.types'
 import Button from '@/components/ui/Button'
@@ -17,15 +17,7 @@ export default function UserManagementPage() {
   const [message, setMessage] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    if (profile?.role === 'super_admin') {
-      fetchUsers()
-    } else {
-      setLoading(false)
-    }
-  }, [profile])
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('profiles')
@@ -40,7 +32,15 @@ export default function UserManagementPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    if (profile?.role === 'super_admin') {
+      fetchUsers()
+    } else {
+      setLoading(false)
+    }
+  }, [profile, fetchUsers])
 
   const handleDeleteUser = async (userId: string) => {
     if (!confirm('Are you sure you want to delete this user? This cannot be undone.')) {

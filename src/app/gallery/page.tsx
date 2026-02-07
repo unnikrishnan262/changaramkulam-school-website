@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { GalleryItem } from '@/types/content.types'
@@ -17,11 +17,7 @@ export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null)
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchGalleryItems()
-  }, [])
-
-  const fetchGalleryItems = async () => {
+  const fetchGalleryItems = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('gallery_items')
@@ -35,7 +31,11 @@ export default function GalleryPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchGalleryItems()
+  }, [fetchGalleryItems])
 
   const filteredItems =
     selectedCategory === 'All'

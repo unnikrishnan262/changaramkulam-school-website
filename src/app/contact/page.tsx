@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { ContactContent } from '@/types/content.types'
 import Header from '@/components/layout/Header'
@@ -23,11 +23,7 @@ export default function ContactPage() {
   const [submitMessage, setSubmitMessage] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchContent()
-  }, [])
-
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
     try {
       const { data } = await supabase
         .from('page_content')
@@ -43,7 +39,11 @@ export default function ContactPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchContent()
+  }, [fetchContent])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
