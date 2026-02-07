@@ -49,7 +49,7 @@ export async function middleware(request: NextRequest) {
       .eq('id', user.id)
       .single()
 
-    if (!profile || !['super_admin', 'editor'].includes(profile.role)) {
+    if (!profile || !['super_admin', 'editor'].includes((profile as any).role)) {
       const url = request.nextUrl.clone()
       url.pathname = '/'
       return NextResponse.redirect(url)

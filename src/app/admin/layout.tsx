@@ -23,13 +23,13 @@ export default async function AdminLayout({
     .eq('id', user.id)
     .single()
 
-  if (!profile || !['super_admin', 'editor'].includes(profile.role)) {
+  if (!profile || !['super_admin', 'editor'].includes((profile as any).role)) {
     redirect('/')
   }
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <AdminSidebar profile={profile} />
+      <AdminSidebar profile={profile as any} />
       <main className="flex-1 overflow-y-auto">
         <div className="p-8">{children}</div>
       </main>
