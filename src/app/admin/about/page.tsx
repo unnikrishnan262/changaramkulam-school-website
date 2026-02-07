@@ -35,8 +35,8 @@ export default function AboutPageAdmin() {
 
       if (error) throw error
 
-      if (data?.content) {
-        setContent(data.content as AboutContent)
+      if ((data as any)?.content) {
+        setContent((data as any).content as AboutContent)
       }
     } catch (error) {
       console.error('Error fetching content:', error)
