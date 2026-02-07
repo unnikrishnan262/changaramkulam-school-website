@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { GalleryItem } from '@/types/content.types'
@@ -20,11 +20,7 @@ export default function GalleryManagementPage() {
   const [deleting, setDeleting] = useState<string | null>(null)
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchGalleryItems()
-  }, [])
-
-  const fetchGalleryItems = async () => {
+  const fetchGalleryItems = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('gallery_items')
@@ -38,7 +34,11 @@ export default function GalleryManagementPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchGalleryItems()
+  }, [fetchGalleryItems])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this image?')) return

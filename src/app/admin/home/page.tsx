@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { HomeContent } from '@/types/content.types'
 import RichTextEditor from '@/components/admin/RichTextEditor'
@@ -23,11 +23,7 @@ export default function HomePageAdmin() {
   const [message, setMessage] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchContent()
-  }, [])
-
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('page_content')
@@ -46,7 +42,11 @@ export default function HomePageAdmin() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchContent()
+  }, [fetchContent])
 
   const handleSave = async () => {
     setSaving(true)
@@ -237,7 +237,7 @@ export default function HomePageAdmin() {
 
             {content.highlights.length === 0 && (
               <p className="text-gray-500 text-center py-8">
-                No highlights added yet. Click "Add Highlight" to create one.
+                No highlights added yet. Click &quot;Add Highlight&quot; to create one.
               </p>
             )}
           </div>

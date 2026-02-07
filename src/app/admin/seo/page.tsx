@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { SEOSettings } from '@/types/content.types'
 import Button from '@/components/ui/Button'
@@ -23,11 +23,7 @@ export default function SEOSettingsPage() {
   const [message, setMessage] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchSettings(selectedPage)
-  }, [selectedPage])
-
-  const fetchSettings = async (pagePath: string) => {
+  const fetchSettings = useCallback(async (pagePath: string) => {
     setLoading(true)
     try {
       const { data, error } = await supabase
@@ -57,7 +53,11 @@ export default function SEOSettingsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchSettings(selectedPage)
+  }, [selectedPage, fetchSettings])
 
   const handleSave = async () => {
     if (!settings) return
