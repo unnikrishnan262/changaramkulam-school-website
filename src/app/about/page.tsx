@@ -15,7 +15,7 @@ export default async function AboutPage() {
     .eq('page_name', 'about')
     .single()
 
-  const aboutContent: AboutContent = (data?.content as AboutContent) || {
+  const aboutContent: AboutContent = ((data as any)?.content as AboutContent) || {
     history: '<p>Our school has a rich history.</p>',
     mission: '<p>To provide quality education.</p>',
     vision: '<p>To be a leading institution.</p>',
