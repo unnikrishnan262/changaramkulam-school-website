@@ -81,7 +81,7 @@ export default async function AboutPage() {
           <section className="py-16 px-4">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold mb-8 text-gray-900">
-                Principal's Message
+                Principal&apos;s Message
               </h2>
               <div className="bg-white rounded-lg shadow-lg p-8">
                 {aboutContent.principal_image && (
