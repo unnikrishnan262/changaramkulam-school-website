@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     let context = 'Here is information about Changaramkulam U P School:\n\n'
 
     if (knowledge && knowledge.length > 0) {
-      const groupedByCategory: Record<string, typeof knowledge> = {}
+      const groupedByCategory: Record<string, any[]> = {}
 
       knowledge.forEach((item: any) => {
         const category = item.category || 'General'
