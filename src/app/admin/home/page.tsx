@@ -33,8 +33,8 @@ export default function HomePageAdmin() {
 
       if (error) throw error
 
-      if (data?.content) {
-        setContent(data.content as HomeContent)
+      if ((data as any)?.content) {
+        setContent((data as any).content as HomeContent)
       }
     } catch (error) {
       console.error('Error fetching content:', error)

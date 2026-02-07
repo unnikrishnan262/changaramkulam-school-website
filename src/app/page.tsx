@@ -16,7 +16,7 @@ export default async function HomePage() {
     .eq('page_name', 'home')
     .single()
 
-  const homeContent: HomeContent = data?.content || {
+  const homeContent: HomeContent = (data as any)?.content || {
     hero_title: 'Welcome to Changaramkulam U P School',
     hero_subtitle: "Building Tomorrow's Leaders Today",
     welcome_message: '<p>Welcome to our school where we nurture young minds.</p>',

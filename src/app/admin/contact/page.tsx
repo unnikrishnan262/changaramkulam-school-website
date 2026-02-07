@@ -30,8 +30,8 @@ export default function ContactPageAdmin() {
 
       if (error) throw error
 
-      if (data?.content) {
-        setContent(data.content as ContactContent)
+      if ((data as any)?.content) {
+        setContent((data as any).content as ContactContent)
       }
     } catch (error) {
       console.error('Error fetching content:', error)
