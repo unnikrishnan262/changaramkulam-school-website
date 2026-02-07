@@ -9,6 +9,8 @@ import Footer from '@/components/layout/Footer'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+export const revalidate = 0
 
 const CATEGORIES = ['All', 'General', 'Sports', 'Academics', 'Events', 'Infrastructure', 'Cultural']
 

@@ -10,6 +10,8 @@ import Input from '@/components/ui/Input'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+export const revalidate = 0
 
 export default function ContactPage() {
   const [content, setContent] = useState<ContactContent | null>(null)
