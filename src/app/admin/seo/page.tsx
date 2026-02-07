@@ -91,13 +91,13 @@ export default function SEOSettingsPage() {
       let error
 
       if (existing) {
-        const result = await supabase
-          .from('seo_settings')
+        const result = await (supabase
+          .from('seo_settings') as any)
           .update(settingsData)
           .eq('page_path', settings.page_path)
         error = result.error
       } else {
-        const result = await supabase.from('seo_settings').insert([settingsData])
+        const result = await (supabase.from('seo_settings') as any).insert([settingsData])
         error = result.error
       }
 

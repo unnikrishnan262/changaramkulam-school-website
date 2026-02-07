@@ -40,7 +40,7 @@ export default function EventsListPage() {
 
     setDeleting(id)
     try {
-      const { error } = await supabase.from('events').delete().eq('id', id)
+      const { error } = await (supabase.from('events') as any).delete().eq('id', id)
 
       if (error) throw error
 

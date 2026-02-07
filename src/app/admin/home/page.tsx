@@ -57,8 +57,8 @@ export default function HomePageAdmin() {
         data: { user },
       } = await supabase.auth.getUser()
 
-      const { error } = await supabase
-        .from('page_content')
+      const { error } = await (supabase
+        .from('page_content') as any)
         .update({
           content: content,
           updated_by: user?.id,

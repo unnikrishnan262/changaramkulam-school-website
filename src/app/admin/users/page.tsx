@@ -48,7 +48,7 @@ export default function UserManagementPage() {
     }
 
     try {
-      const { error } = await supabase.from('profiles').delete().eq('id', userId)
+      const { error } = await (supabase.from('profiles') as any).delete().eq('id', userId)
 
       if (error) throw error
 
@@ -221,7 +221,7 @@ function AddUserModal({
 
       if (authData.user) {
         // Create profile
-        const { error: profileError } = await supabase.from('profiles').insert([
+        const { error: profileError } = await (supabase.from('profiles') as any).insert([
           {
             id: authData.user.id,
             email: formData.email,

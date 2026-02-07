@@ -45,8 +45,8 @@ export default function GalleryManagementPage() {
 
     setDeleting(id)
     try {
-      const { error } = await supabase
-        .from('gallery_items')
+      const { error } = await (supabase
+        .from('gallery_items') as any)
         .delete()
         .eq('id', id)
 
@@ -222,7 +222,7 @@ function AddImageModal({
         data: { user },
       } = await supabase.auth.getUser()
 
-      const { error } = await supabase.from('gallery_items').insert([
+      const { error } = await (supabase.from('gallery_items') as any).insert([
         {
           title: formData.title,
           description: formData.description || null,

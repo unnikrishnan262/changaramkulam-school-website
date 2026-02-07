@@ -73,8 +73,8 @@ export default function ThemeSettingsPage() {
 
       if (existing) {
         // Update existing settings
-        const result = await supabase
-          .from('theme_settings')
+        const result = await (supabase
+          .from('theme_settings') as any)
           .update({
             primary_color: settings.primary_color,
             secondary_color: settings.secondary_color,
@@ -87,8 +87,8 @@ export default function ThemeSettingsPage() {
         error = result.error
       } else {
         // Insert new settings
-        const result = await supabase
-          .from('theme_settings')
+        const result = await (supabase
+          .from('theme_settings') as any)
           .insert({
             setting_name: 'default',
             primary_color: settings.primary_color,
