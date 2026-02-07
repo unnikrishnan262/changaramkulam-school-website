@@ -8,6 +8,8 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
+export const dynamic = 'force-dynamic'
+
 const CATEGORIES = ['All', 'General', 'Sports', 'Academics', 'Events', 'Infrastructure', 'Cultural']
 
 export default function GalleryPage() {

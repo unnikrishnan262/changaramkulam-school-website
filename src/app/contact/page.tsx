@@ -9,6 +9,8 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
+export const dynamic = 'force-dynamic'
+
 export default function ContactPage() {
   const [content, setContent] = useState<ContactContent | null>(null)
   const [loading, setLoading] = useState(true)
