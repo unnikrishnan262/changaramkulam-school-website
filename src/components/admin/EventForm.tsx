@@ -90,13 +90,13 @@ export default function EventForm({ event, isEdit = false }: EventFormProps) {
       let error
 
       if (isEdit && event) {
-        const result = await supabase
-          .from('events')
+        const result = await (supabase
+          .from('events') as any)
           .update(eventData)
           .eq('id', event.id)
         error = result.error
       } else {
-        const result = await supabase.from('events').insert([eventData])
+        const result = await (supabase.from('events') as any).insert([eventData])
         error = result.error
       }
 
